@@ -14,6 +14,7 @@ First, install git, nodejs (18 or 20), and pnpm.
 ```
 git clone https://github.com/ludios/electron-trashfire-repair
 cd electron-trashfire-repair
+pnpm install --ignore-scripts --no-optional
 node patch-signal-desktop.js PATH_TO_SIGNAL_DESKTOP
 ```
 
