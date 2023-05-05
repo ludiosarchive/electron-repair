@@ -16,8 +16,6 @@ async function replace_in_file(path, replacements) {
                 `to replace \n${inspect(matcher)} with \n${inspect(replacement)}`);
         }
         content = new_content;
-        //console.log(content);
-        await fs.writeFile(path + ".new", content, 'utf8');
     }
     await fs.writeFile(path, content, 'utf8');
 }
@@ -57,34 +55,36 @@ console.log(`Making "Note to Self" badge grayscale ...`);
 await replace_in_file(
     path.join(extract_path, "stylesheets", "manifest.css"), [
         [
-            ".ContactModal__official-badge {\n",
-            ".ContactModal__official-badge {\n  filter: grayscale(1);\n",
+            "\n.ContactModal__official-badge {\n",
+            "\n.ContactModal__official-badge {\n  filter: grayscale(1);\n",
         ],
         [
-            ".ContactModal__official-badge__large {\n",
-            ".ContactModal__official-badge__large {\n  filter: grayscale(1);\n",
+            "\n.ContactModal__official-badge__large {\n",
+            "\n.ContactModal__official-badge__large {\n  filter: grayscale(1);\n",
         ],
     ]
 );
 
 console.log(`Replacing Inter typeface with system-ui ...`);
-await replace_in_file(
-    path.join(extract_path, "stylesheets", "manifest.css"), [
-        [
-            /^body \{([\s\S]*)?font-family: Inter, [^;]+;([^\}]*)\}/m,
-            "body {$1font-family: system-ui, sans-serif;$2}",
-        ],
-        [
-            /^body \{([\s\S]*)?font-size: 14px;([^\}]*)\}/m,
-            "body {$1font-size: 15px;$2}",
-        ],
-        [   
-            /^body \{([\s\S]*)?line-height: 20px;([^\}]*)\}/m,
-            "body {$1line-height: 23px;$2}",
-        ],
-        [
-            /^body \{([\s\S]*)?letter-spacing: [^;]+;([^\}]*)\}/m,
-            "body {$1$2}",
-        ],
-    ]
-);
+for (const css_file of ["manifest.css", "manifest_bridge.css"]) {
+    await replace_in_file(
+        path.join(extract_path, "stylesheets", css_file), [
+            [
+                /\bfont-family: Inter, [^;]+;/g,
+                "font-family: system-ui, sans-serif; /* was Inter, ... */",
+            ],
+            [
+                /\bfont-size: 14px;/g,
+                "font-size: 15px; /* was 14px */",
+            ],
+            [   
+                /\bline-height: 20px;/g,
+                "line-height: 23px; /* was 20px */",
+            ],
+            [
+                /\bletter-spacing: ([^;]+);/g,
+                "/* was letter-spacing: $1; */",
+            ],
+        ]
+    );
+}
