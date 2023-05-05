@@ -95,3 +95,19 @@ for (const css_file of ["manifest.css", "manifest_bridge.css"]) {
         ]
     );
 }
+
+// Signal servers work with old builds for a very long time, but Signal-Desktop
+// ships with a short (~31 day?) timebomb with each Signal-Desktop build that
+// forces you to update frequently.
+console.log(`Disabling build expiration timebomb ...`);
+await replace_in_file(
+    path.join(extract_path, "preload.bundle.js"), [
+        [
+            "(buildExpiration, autoDownloadUpdate, now2) => {",
+            "(buildExpiration, autoDownloadUpdate, now2) => { return false; /* no timebomb */",
+        ],
+    ]
+);
+
+console.log(`Writing patched archive to ${asar_path} ...`);
+await asar.createPackage(extract_path, asar_path);
