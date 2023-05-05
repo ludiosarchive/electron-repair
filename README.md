@@ -18,7 +18,7 @@ pnpm install --ignore-scripts --no-optional
 node patch-signal-desktop.js PATH_TO_SIGNAL_DESKTOP
 ```
 
-where `PATH_TO_SIGNAL_DESKTOP` is e.g. `%LOCALAPPDATA%\\Programs\\signal-desktop`.
+where `PATH_TO_SIGNAL_DESKTOP` is e.g. `%LOCALAPPDATA%\Programs\signal-desktop`.
 
 This will back up `resources/app.asar` to `resources/app.asar.orig` (if it doesn't already exist) and then patch and overwrite `resources/app.asar`.
 
