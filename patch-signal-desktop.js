@@ -7,6 +7,11 @@ import { promises as fs } from "node:fs";
 import crypto from "node:crypto";
 import asar from "@electron/asar";
 
+function file_exists(path) {
+    // https://stackoverflow.com/questions/17699599/node-js-check-if-file-exists#
+    return fs.stat(path).then(() => true, () => false);
+}
+
 async function replace_in_file(path, replacements) {
     let content = await fs.readFile(path, 'utf8');
     for (const [matcher, replacement] of replacements) {
@@ -28,12 +33,12 @@ if (!signal_desktop_path) {
 console.log(`Patching Signal-Desktop in ${signal_desktop_path} ...`);
 
 const asar_path = path.join(signal_desktop_path, "resources", "app.asar");
-if (!await fs.stat(asar_path)) {
+if (!await file_exists(asar_path)) {
     throw new Error(`Expected file ${asar_path} to exist, but it does not.`);
 }
 
 const asar_orig_path = path.join(signal_desktop_path, "resources", "app.asar.orig");
-if (!await fs.stat(asar_orig_path)) {
+if (!await file_exists(asar_orig_path)) {
     console.log(`Backing up \n${asar_path} to \n${asar_orig_path} ...`);
     await fs.copyFile(asar_path, asar_orig_path);
 } else {
