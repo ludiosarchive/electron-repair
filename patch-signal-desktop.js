@@ -70,6 +70,8 @@ await replace_in_file(
     ]
 );
 
+// Signal-Desktop people really like Inter, but system-ui (on Windows, Segoe UI)
+// is a little easier to read by virtue of being crisper and more familiar.
 console.log(`Replacing Inter typeface with system-ui ...`);
 for (const css_file of ["manifest.css", "manifest_bridge.css"]) {
     await replace_in_file(
