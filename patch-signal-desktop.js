@@ -38,8 +38,6 @@ if (!await file_exists(asar_path)) {
 }
 
 const asar_orig_path = path.join(signal_desktop_path, "resources", "app.asar.orig");
-const orig_filesystem = asar.getRawHeader(asar_orig_path);
-console.log(orig_filesystem);
 if (!await file_exists(asar_orig_path)) {
     console.log(`Backing up \n${asar_path} to \n${asar_orig_path} ...`);
     await fs.copyFile(asar_path, asar_orig_path);
@@ -48,9 +46,8 @@ if (!await file_exists(asar_orig_path)) {
 }
 
 const extract_path = path.join(os.tmpdir(), `patch-signal-desktop-${crypto.randomUUID()}`);
-console.log(`Extracting ${asar_orig_path} to ${extract_path} ...`);
-await asar.extractAll(asar_orig_path, extract_path);
-
+console.log(`Extracting ${asar_path} to ${extract_path} ...`);
+await asar.extractAll(asar_path, extract_path);
 
 // Signal-Desktop introduced a verified checkmark badge on "Notes to Self" to
 // prevent someone from impersonating "Notes to Self", but the blue color matches
@@ -113,11 +110,4 @@ await replace_in_file(
 );
 
 console.log(`Writing patched archive to ${asar_path} ...`);
-// The asar format is insane: the `files` metadata listing its files also includes
-// files in .asar.unpacked. By default, @electron/asar copies over these unpacked
-// files when extracting, but this is annoying because creating an asar from that
-// output packs those previously unpacked files. We don't want that, so we patch
-// @electron/asar to not copy over the unpacked files when extracting. But now,
-// when we create the replacement archive, we need to use the filesystem from the
-// original asar file, includes the .asar.unpacked files in its files metadata.
-await asar.createPackageWithOptions(extract_path, asar_path, {filesystem: orig_filesystem});
+await asar.createPackage(extract_path, asar_path);

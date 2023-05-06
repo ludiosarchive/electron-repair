@@ -12,10 +12,5 @@
   "license": "ISC",
   "dependencies": {
     "@electron/asar": "^3.2.4"
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "@electron/asar@3.2.4": "patches/@electron__asar@3.2.4.patch"
-    }
   }
 }
