@@ -122,3 +122,6 @@ console.log(`Writing patched archive to ${asar_path} ...`);
 // Don't pack the .node files into the .asar; they need to go into .asar.unpacked/
 // Note that asar archives include unpacked files in their metadata.
 await asar.createPackageWithOptions(extract_path, asar_path, {unpack: "*.node"});
+
+console.log(`Removing ${extract_path} ...`);
+await fs.rm(extract_path, {recursive: true});
