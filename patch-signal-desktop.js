@@ -39,15 +39,24 @@ if (!await file_exists(asar_path)) {
 
 const asar_orig_path = path.join(signal_desktop_path, "resources", "app.asar.orig");
 if (!await file_exists(asar_orig_path)) {
-    console.log(`Backing up \n${asar_path} to \n${asar_orig_path} ...`);
+    console.log(`Backing up \n  ${asar_path} -> \n  ${asar_orig_path} ...`);
     await fs.copyFile(asar_path, asar_orig_path);
 } else {
     console.log(`Backup at ${asar_orig_path} already exists, not overwriting.`);
 }
 
+if (!await file_exists(`${asar_orig_path}.unpacked`)) {
+    // A copy of the .unpacked directory that we have to make just for the asar module
+    // to be able to extract. https://github.com/electron/asar/issues/71
+    console.log(`Backing up \n  ${asar_path}.unpacked -> \n  ${asar_orig_path}.unpacked ...`);
+    await fs.cp(`${asar_path}.unpacked`, `${asar_orig_path}.unpacked`, {recursive: true});
+} else {
+    console.log(`Backup at ${asar_orig_path}.unpacked already exists, not overwriting.`);
+}
+
 const extract_path = path.join(os.tmpdir(), `patch-signal-desktop-${crypto.randomUUID()}`);
-console.log(`Extracting ${asar_path} to ${extract_path} ...`);
-await asar.extractAll(asar_path, extract_path);
+console.log(`Extracting ${asar_orig_path} -> ${extract_path} ...`);
+await asar.extractAll(asar_orig_path, extract_path);
 
 // Signal-Desktop introduced a verified checkmark badge on "Notes to Self" to
 // prevent someone from impersonating "Notes to Self", but the blue color matches
@@ -110,4 +119,6 @@ await replace_in_file(
 );
 
 console.log(`Writing patched archive to ${asar_path} ...`);
-await asar.createPackage(extract_path, asar_path);
+// Don't pack the .node files into the .asar; they need to go into .asar.unpacked/
+// Note that asar archives include unpacked files in their metadata.
+await asar.createPackageWithOptions(extract_path, asar_path, {unpack: "*.node"});
