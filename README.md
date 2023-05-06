@@ -1,4 +1,4 @@
-# electron-trashfire-repair
+# electron-repair
 
 This program patches [Signal-Desktop](https://github.com/signalapp/Signal-Desktop) to:
 - make the "Notes to Self" badge grayscale instead of blue so that it doesn't [look like you have new messages](https://github.com/signalapp/Signal-Desktop/issues/6339)
@@ -14,8 +14,8 @@ This repository is CC0-licensed and can be used as a template for patching other
 First, install git, nodejs (18 or 20), and pnpm.
 
 ```
-git clone https://github.com/ludios/electron-trashfire-repair
-cd electron-trashfire-repair
+git clone https://github.com/ludios/electron-repair
+cd electron-repair
 pnpm install --ignore-scripts --no-optional
 node patch-signal-desktop.js PATH_TO_SIGNAL_DESKTOP
 ```
