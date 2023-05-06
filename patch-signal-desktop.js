@@ -7,8 +7,8 @@ import { promises as fs } from "node:fs";
 import crypto from "node:crypto";
 import asar from "@electron/asar";
 
+// https://stackoverflow.com/questions/17699599/node-js-check-if-file-exists
 function file_exists(path) {
-    // https://stackoverflow.com/questions/17699599/node-js-check-if-file-exists#
     return fs.stat(path).then(() => true, () => false);
 }
 
