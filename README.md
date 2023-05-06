@@ -7,7 +7,7 @@ This program patches [Signal-Desktop](https://github.com/signalapp/Signal-Deskto
 - increase `font-size` and `line-height` slightly
 - remove its `letter-spacing` adjustments
 
-This repository is CC0-licensed and can be used as a template for patching other annoying Electron programs.
+This repository is CC0-licensed and can be used as a template for customizing other Electron programs.
 
 ## Usage
 
