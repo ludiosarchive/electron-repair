@@ -32,14 +32,14 @@ Change the setting in the Preferences:
 
 File -> Preferences... -> Chats -> Sent media quality -> High
 
-### It has smooth scrolling
+### Smooth scrolling is slower than desired
 
 Add `--disable-smooth-scrolling` to the arguments in your Signal shortcut.
 
-### The DevTools are missing
+### DevTools are missing
 
 Add `--enable-dev-tools` to the arguments in your Signal shortcut.
 
-### It doesn't GPU-accelerate its rendering on your ancient laptop
+### Lack of GPU acceleration on your ancient laptop
 
 Add `--ignore-gpu-blocklist` to the arguments in your Signal shortcut.
