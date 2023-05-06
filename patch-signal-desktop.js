@@ -65,7 +65,7 @@ await asar.extractAll(asar_orig_path, extract_path);
 // Patch it to to make it grayscale.
 //
 // https://github.com/signalapp/Signal-Desktop/issues/6339
-console.log(`Making "Note to Self" badge grayscale ...`);
+console.log(`Making the "Note to Self" badge grayscale ...`);
 await replace_in_file(
     path.join(extract_path, "stylesheets", "manifest.css"), [
         [
@@ -81,7 +81,7 @@ await replace_in_file(
 
 // Signal-Desktop people really like Inter, but system-ui (on Windows, Segoe UI)
 // is a little easier to read by virtue of being crisper and more familiar.
-console.log(`Replacing Inter typeface with system-ui ...`);
+console.log(`Fixing the typography ...`);
 for (const css_file of ["manifest.css", "manifest_bridge.css"]) {
     await replace_in_file(
         path.join(extract_path, "stylesheets", css_file), [
@@ -108,7 +108,7 @@ for (const css_file of ["manifest.css", "manifest_bridge.css"]) {
 // Signal servers work with old builds for a very long time, but Signal-Desktop
 // ships with a short (~31 day?) timebomb with each Signal-Desktop build that
 // forces you to update frequently.
-console.log(`Disabling build expiration timebomb ...`);
+console.log(`Disabling the build expiration timebomb ...`);
 await replace_in_file(
     path.join(extract_path, "preload.bundle.js"), [
         [
