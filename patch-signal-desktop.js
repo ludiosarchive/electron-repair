@@ -112,8 +112,8 @@ console.log(`Disabling the build expiration timebomb ...`);
 await replace_in_file(
     path.join(extract_path, "preload.bundle.js"), [
         [
-            "(buildExpiration, autoDownloadUpdate, now2) => {",
-            "(buildExpiration, autoDownloadUpdate, now2) => { return false; /* no timebomb */",
+            /\)=>{if\([_$a-zA-Z0-9]+\(\)!=="production"&&e===0\)return!1;/,
+            ')=>{return false; /* no timebomb */;',
         ],
     ]
 );
