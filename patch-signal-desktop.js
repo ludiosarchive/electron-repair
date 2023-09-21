@@ -79,23 +79,14 @@ await replace_in_file(
     ]
 );
 
-// Signal-Desktop people really like Inter, but system-ui (on Windows, Segoe UI)
-// is a little easier to read by virtue of being crisper and more familiar.
+// Replace Inter with Inter Variable 28pt
 console.log(`Fixing the typography ...`);
 for (const css_file of ["manifest.css", "manifest_bridge.css"]) {
     await replace_in_file(
         path.join(extract_path, "stylesheets", css_file), [
             [
                 /\bfont-family: Inter, [^;]+;/g,
-                "font-family: system-ui, sans-serif; /* was Inter, ... */",
-            ],
-            [
-                /\bfont-size: 14px;/g,
-                "font-size: 15px; /* was 14px */",
-            ],
-            [
-                /\bline-height: 20px;/g,
-                "line-height: 23px; /* was 20px */",
+                "font-family: 'Inter Variable 28pt'; /* was Inter, ... */",
             ],
             [
                 /\bletter-spacing: ([^;]+);/g,
