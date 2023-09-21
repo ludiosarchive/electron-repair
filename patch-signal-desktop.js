@@ -93,7 +93,7 @@ for (const css_file of ["manifest.css", "manifest_bridge.css"]) {
                 /\bfont-size: 14px;/g,
                 "font-size: 15px; /* was 14px */",
             ],
-            [   
+            [
                 /\bline-height: 20px;/g,
                 "line-height: 23px; /* was 20px */",
             ],
