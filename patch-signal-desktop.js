@@ -79,7 +79,6 @@ await replace_in_file(
     ]
 );
 
-// Replace Inter with Inter Variable 28pt
 console.log(`Fixing the typography ...`);
 for (const css_file of ["manifest.css", "manifest_bridge.css"]) {
     await replace_in_file(
@@ -87,6 +86,14 @@ for (const css_file of ["manifest.css", "manifest_bridge.css"]) {
             [
                 /\bfont-family: Inter, [^;]+;/g,
                 "font-family: 'Inter Variable 28pt'; /* was Inter, ... */",
+            ],
+            [
+                /\bfont-size: 14px;/g,
+                "font-size: 15px; /* was 14px */",
+            ],
+            [
+                /\bline-height: 20px;/g,
+                "line-height: 23px; /* was 20px */",
             ],
             [
                 /\bletter-spacing: ([^;]+);/g,
