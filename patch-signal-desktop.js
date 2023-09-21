@@ -99,6 +99,10 @@ for (const css_file of ["manifest.css", "manifest_bridge.css"]) {
                 /\bletter-spacing: ([^;]+);/g,
                 "/* was letter-spacing: $1; */",
             ],
+            [
+                /\bfont-weight: (bold|bolder|600|700);/g,
+                "font-weight: 550; /* was font-weight: $1; */",
+            ],
         ]
     );
 }
