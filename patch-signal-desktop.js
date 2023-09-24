@@ -79,7 +79,7 @@ await replace_in_file(
     ]
 );
 
-console.log(`Fixing the typography ...`);
+console.log(`Fixing the typography and colors ...`);
 for (const css_file of ["manifest.css", "manifest_bridge.css"]) {
     await replace_in_file(
         path.join(extract_path, "stylesheets", css_file), [
@@ -102,6 +102,11 @@ for (const css_file of ["manifest.css", "manifest_bridge.css"]) {
             [
                 /\bfont-weight: (bold|bolder|600|700);/g,
                 "font-weight: 550; /* was font-weight: $1; */",
+            ],
+            /* Reduce brightness of message text */
+            [
+                /([\s\{])color: (#e9e9e9|rgba\(255,\s?255,\s?255,\s?0\.9\));/g,
+                "$1color: rgb(216 216 216); /* was color: $2; */",
             ],
         ]
     );
