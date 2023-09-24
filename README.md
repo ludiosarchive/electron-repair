@@ -3,9 +3,11 @@
 This program patches [Signal-Desktop](https://github.com/signalapp/Signal-Desktop) to:
 - make the "Notes to Self" badge grayscale instead of blue so that it doesn't [look like you have new messages](https://github.com/signalapp/Signal-Desktop/issues/6339)
 - remove the ~1 month build expiration timebomb that suddenly prevents you from sending any messages
-- [use `font-face: system-ui` instead of `font-face: Inter`](https://github.com/signalapp/Signal-Desktop/pull/2141)
+- [use `font-face: Inter Variable 28pt` (not actually this big) instead of `font-face: Inter`](https://github.com/rsms/inter/releases)
 - increase `font-size` and `line-height` slightly
-- remove its `letter-spacing` adjustments
+- remove `letter-spacing` adjustments
+- reduce `font-weight` slightly on bold things
+- reduce the brightness of message text to `rgb(216 216 216)`
 
 This repository is CC0-licensed and can be used as a template for customizing other Electron programs.
 
