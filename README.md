@@ -3,7 +3,7 @@
 This program patches [Signal-Desktop](https://github.com/signalapp/Signal-Desktop) to:
 - make the "Notes to Self" badge grayscale instead of blue so that it doesn't [look like you have new messages](https://github.com/signalapp/Signal-Desktop/issues/6339)
 - remove the ~1 month build expiration timebomb that suddenly prevents you from sending any messages
-- [use `font-face: Inter Variable 28pt` (not actually this big) instead of `font-face: Inter`](https://github.com/rsms/inter/releases)
+- [use `font-face: Inter Display` instead of `font-face: Inter`](https://github.com/rsms/inter/releases)
 - increase `font-size` and `line-height` slightly
 - remove `letter-spacing` adjustments
 - reduce `font-weight` slightly on bold things

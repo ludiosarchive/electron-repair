@@ -85,7 +85,7 @@ for (const css_file of ["manifest.css", "manifest_bridge.css"]) {
         path.join(extract_path, "stylesheets", css_file), [
             [
                 /\bfont-family: Inter, [^;]+;/g,
-                "font-family: 'Inter Variable 28pt'; /* was Inter, ... */",
+                "font-family: 'Inter Display'; /* was Inter, ... */",
             ],
             [
                 /\bfont-size: 14px;/g,
